@@ -1,18 +1,30 @@
 package Exp1.prod_auto;
 
-public class Product {
+public abstract class Product {
     private String name;
     private int price;
 
-    enum Categority {
-        drinks, cookies, chocolates;
+    public enum Category {
+        DRINKS, COOKIES, CHOCOLATES, CRACKERS;
     }
 
-    private Categority categority;
+    private Category category;
 
-    public Product(String name, Categority categority, int price) {
+    public Product() {
+        this.name = "";
+        this.price = 0;
+        this.category = Category.DRINKS;
+    }
+
+    public Product(String name, int price) {
         this.name = name;
-        this.categority = categority;
+        this.price = price;
+        this.category = Category.DRINKS;
+    }
+
+    public Product(String name, Category category, int price) {
+        this.name = name;
+        this.category = category;
         this.price = price;
     }
 
@@ -24,7 +36,12 @@ public class Product {
         return this.price;
     }
 
-    public Categority getCategority() {
-        return this.categority;
+    public Category getCategory() {
+        return this.category;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{name='" + name + "', category=" + category + ", price=" + price + "}";
     }
 }

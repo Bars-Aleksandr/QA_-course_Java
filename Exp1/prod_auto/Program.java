@@ -1,13 +1,15 @@
-// Реализуйте класс Товар, содержащий данные о товаре, и ТорговыйАвтомат, содержащий в себе методы
-// initProducts (List <Product>) сохраняющий в себе список исходных продуктов и getProduct(String name)
+// Задача 1. Реализуйте класс Товар, содержащий данные о товаре, и ТорговыйАвтомат, содержащий в себе 
+// методы initProducts (List <Product>) сохраняющий в себе список исходных продуктов и getProduct(String name)
+// Задача 2-Инкапсуляция. Реализуйте конструкторы,get/set методы,
+// постройте логику ТорговогоАвтомата на основе кода сделанного в предыдущем задании.
+// Задача 3-Наследование. Сделайте класс Товар абстрактным,создайте нескольких наследников(к примеру:БутылкаВоды),
+// сделайте интерфейсом ТорговыйАвтомат и реализуйте класс какого-то одного типа ТорговогоАвтомата(пример:ПродающийБутылкиВодыАвтомат)
 
 package Exp1.prod_auto;
 
-//import java.util.ArrayList;
-//import java.util.List;
 import java.util.Scanner;
 
-import Exp1.prod_auto.Product.Categority;
+import Exp1.prod_auto.Product.Category;
 
 public class Program {
     static Scanner iScanner;
@@ -23,26 +25,28 @@ public class Program {
     }
 
     public static void main(String[] args) throws IllegalArgumentException {
-        Vending_machine vending_machine = new Vending_machine();
-        iScanner = vending_machine.iScanner;
+        VendingMachineSweetProduct vendingMachineSweetProduct = new VendingMachineSweetProduct();
+        iScanner = VendingMachineSweetProduct.iScanner;
         boolean flag = true;
         while (flag) {
             try {
                 String flagMenu = menu();
                 switch (flagMenu) {
                     case "1":
-                        String nameProduct = vending_machine.inpNameProduct();
-                        Categority categorityProduct = vending_machine.inpCategoryProduct();
-                        int priceProduct = vending_machine.inpPriceProduct();
-                        vending_machine.initProducts(nameProduct, categorityProduct, priceProduct);
+                        String nameProduct = vendingMachineSweetProduct.inpNameProduct();
+                        Category categoryProduct = vendingMachineSweetProduct.inpCategoryProduct();
+                        int priceProduct = vendingMachineSweetProduct.inpPriceProduct();
+                        vendingMachineSweetProduct.initProducts(nameProduct, categoryProduct,
+                                priceProduct);
+
                         break;
                     case "2":
                         System.out.println("Введите название продукта, который желаете получить: ");
                         String getName = iScanner.nextLine();
-                        System.out.println(vending_machine.getProduct(getName));
+                        System.out.println(vendingMachineSweetProduct.getProduct(getName));
                         break;
                     case "3":
-                        vending_machine.getProductAll();
+                        System.out.println(vendingMachineSweetProduct.getAllProducts());
                         break;
                     case "0":
                         flag = false;
