@@ -3,7 +3,7 @@ package Exp1.prod_auto;
 public class SweetProduct extends Product {
     private int weight;
 
-    public SweetProduct(String name, Category сategory, int price, int weight) {
+    public SweetProduct(String name, Category сategory, int weight, float price) {
         super(name, сategory, price);
         this.weight = weight;
     }
@@ -18,8 +18,9 @@ public class SweetProduct extends Product {
 
     @Override
     public String toString() {
-        return String.format("{name='%s', price=%d, weight=%d 'g', category='%s' }", getName(), getPrice(),
-                getWeight(), getCategory());
+        return String.format(
+                "%s - %s, weight=%d g., price=%.2f руб.", getCategory(), getName(),
+                getWeight(), getPrice());
     }
 
 }

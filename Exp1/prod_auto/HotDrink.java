@@ -1,11 +1,10 @@
 package Exp1.prod_auto;
 
-public class BottleOfWater extends Product {
-
+public class HotDrink extends Product {
     private int volume;
 
-    public BottleOfWater(String name, float price, int volume) {
-        super(name, Category.DRINKS, price);
+    public HotDrink(String name, float price, int volume) {
+        super(name, Category.HOTDRINKS, price);
         this.volume = volume;
     }
 

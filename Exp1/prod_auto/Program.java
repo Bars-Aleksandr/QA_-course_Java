@@ -9,16 +9,16 @@ package Exp1.prod_auto;
 
 import java.util.Scanner;
 
-import Exp1.prod_auto.Product.Category;
+//import Exp1.prod_auto.Product.Category;
 
 public class Program {
     static Scanner iScanner;
 
     public static String menu() {
-        System.out.println("Вас приветствует автомат для выдачи продуктов");
-        System.out.println("Если Вы желаете положить продукты в автомат, введите - 1");
-        System.out.println("Если Вы желаете получить продукты из автомата, введите - 2");
-        System.out.println("Чтобы получить список всех прдуктов, введите - 3");
+        System.out.println("Выберите, что Вы желаете: ");
+        System.out.println(" сладости - 1 ");
+        System.out.println(" холодные напитки - 2");
+        System.out.println(" горячие напитки - 3");
         System.out.println("Для завершения работы с автоматом введите - 0");
         String inpFlag = iScanner.nextLine();
         return inpFlag;
@@ -26,6 +26,8 @@ public class Program {
 
     public static void main(String[] args) throws IllegalArgumentException {
         VendingMachineSweetProduct vendingMachineSweetProduct = new VendingMachineSweetProduct();
+        VendingMachineBottleOfWater vendingMachineBottleOfWater = new VendingMachineBottleOfWater();
+        VendingMachineHotDrinks vendingMachineHotDrinks = new VendingMachineHotDrinks();
         iScanner = VendingMachineSweetProduct.iScanner;
         boolean flag = true;
         while (flag) {
@@ -33,20 +35,19 @@ public class Program {
                 String flagMenu = menu();
                 switch (flagMenu) {
                     case "1":
-                        String nameProduct = vendingMachineSweetProduct.inpNameProduct();
-                        Category categoryProduct = vendingMachineSweetProduct.inpCategoryProduct();
-                        int priceProduct = vendingMachineSweetProduct.inpPriceProduct();
-                        vendingMachineSweetProduct.initProducts(nameProduct, categoryProduct,
-                                priceProduct);
-
+                        vendingMachineSweetProduct.printAllProducts();
+                        System.out.println(
+                                vendingMachineSweetProduct.getProduct(vendingMachineSweetProduct.inpNameProduct()));
                         break;
                     case "2":
-                        System.out.println("Введите название продукта, который желаете получить: ");
-                        String getName = iScanner.nextLine();
-                        System.out.println(vendingMachineSweetProduct.getProduct(getName));
+                        vendingMachineBottleOfWater.printAllProducts();
+                        System.out.println(
+                                vendingMachineBottleOfWater.getProduct(vendingMachineBottleOfWater.inpNameProduct()));
                         break;
                     case "3":
-                        System.out.println(vendingMachineSweetProduct.getAllProducts());
+                        vendingMachineHotDrinks.printAllProducts();
+                        System.out.println(
+                                vendingMachineHotDrinks.getProduct(vendingMachineHotDrinks.inpNameProduct()));
                         break;
                     case "0":
                         flag = false;

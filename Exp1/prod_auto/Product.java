@@ -2,10 +2,10 @@ package Exp1.prod_auto;
 
 public abstract class Product {
     private String name;
-    private int price;
+    private float price;
 
     public enum Category {
-        DRINKS, COOKIES, CHOCOLATES, CRACKERS;
+        DRINKS, COOKIES, CHOCOLATES, CHIPS, HOTDRINKS;
     }
 
     private Category category;
@@ -16,13 +16,13 @@ public abstract class Product {
         this.category = Category.DRINKS;
     }
 
-    public Product(String name, int price) {
+    public Product(String name, float price) {
         this.name = name;
         this.price = price;
         this.category = Category.DRINKS;
     }
 
-    public Product(String name, Category category, int price) {
+    public Product(String name, Category category, float price) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -32,7 +32,7 @@ public abstract class Product {
         return this.name;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return this.price;
     }
 
