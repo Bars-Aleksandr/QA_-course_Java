@@ -11,40 +11,64 @@ import model.Type;
 import model.User;
 
 public class DataService {
-    private Student student = new Student();
-    private Teacher teacher = new Teacher();
 
     private List<User> usersList;
+    private static Long lastStudentId = 0L;
+    private static Long lastTeacherId = 0L;
+    private FileService fileService;
 
-    public DataService() {
-        this.usersList = new ArrayList<User>();
+    public DataService(String path) {
+        this.usersList = new ArrayList<>();
+        this.fileService = new FileService(path);
+    }
+
+    public void load() {
+        usersList = fileService.load();
+        checkID();
+    }
+
+    public void save() {
+        fileService.save(usersList);
+    }
+    
+    private void checkID(){
+        for (User user : usersList) {
+            if (user instanceof Student) {
+                lastStudentId++;
+            }
+            if (user instanceof Teacher) {
+                lastTeacherId++;
+            }
+        }
     }
 
     public User createUser(String firstName, String lastName, String middleName, String birthDate, Type type) {
-        Long id = createUserId(type);
-        User newUser = new Student();
+        Long id = createUserLastId(type);
+        User newUser;
+        
         if (Type.STUDENT.equals(type)) {
             newUser = Student.createStudent(id, firstName, lastName, middleName, birthDate);
         } else if (Type.TEACHER.equals(type)) {
             newUser = Teacher.createTeacher(id, firstName, lastName, middleName, birthDate);
+        } else {
+            throw new IllegalArgumentException("Unknown user type: " + type);
         }
         return newUser;
+    }
+
+
+    private Long createUserLastId(Type type) {
+
+        if (Type.STUDENT.equals(type)) {
+            return ++lastStudentId;
+        } else {
+            return ++lastTeacherId;
+        }
     }
 
     public void addUserToList(User user) {
         usersList.add(user);
     }
-
-    private Long createUserId(Type type) {
-        Long id = 0L;
-        if (Type.STUDENT.equals(type)) {
-            id = student.getStudentId() + 1L;
-        } else {
-            id = teacher.getTeacherId() + 1L;
-        }
-        return id;
-    }
-
     public void addUserToListByFullName(String firstName, String lastName, String middleName, String birthDate,
             Type type) {
         User user = createUser(firstName, lastName, middleName, birthDate, type);
@@ -55,14 +79,14 @@ public class DataService {
         Iterator<User> iterator = usersList.iterator();
         while (iterator.hasNext()) {
             User user = iterator.next();
-            if (user instanceof Student) {
-                student = (Student) user;
+            if (user instanceof Student && type.equals(Type.STUDENT)) {
+                Student student = (Student) user;
                 if (student.getStudentId().equals(id)) {
                     return student;
                 }
             }
-            if (user instanceof Teacher) {
-                teacher = (Teacher) user;
+            if (user instanceof Teacher && type.equals(Type.TEACHER)) {
+                Teacher teacher = (Teacher) user;
                 if (teacher.getTeacherId().equals(id)) {
                     return teacher;
                 }

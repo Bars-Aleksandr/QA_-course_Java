@@ -23,10 +23,8 @@ public class Teacher extends User {
 
     @Override
     public String toString() {
-        return "User [Id=" + getTeacherId() + ", firstName=" + super.getFirstName() + ", lastName="
-                + super.getLastName()
-                + ", middleName=" + super.getMiddleName() + ", birthDate=" + super.getBirthDate().format(getFormatter())
-                + "]";
+        return String.format("%3d   %-15s  %-15s  %-15s  %s", this.teacherId,
+                super.getFirstName(), super.getLastName(), super.getMiddleName(),
+                super.getBirthDate().format(getFormatter()));
     }
-
 }
