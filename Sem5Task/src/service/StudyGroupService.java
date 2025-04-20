@@ -12,8 +12,7 @@ public class StudyGroupService {
     
 
     public StudyGroup createStudyGroupService(Teacher teacher, List<Student> students) {
-        StudyGroup studyGroup = new StudyGroup(teacher, students);
-        return studyGroup;
+        return new StudyGroup(teacher, students);
     }
 
     public void printStudyGroupOnConsole(StudyGroup studyGroup) {
