@@ -1,12 +1,22 @@
-package Core.MVC.view.models;
+//Применяем S – Single Responsibility (Принцип единственной ответственности), Liskov Substitution (L),
+package Core.MVC.models;
+
 import java.time.LocalDate;
 
-public class User {
+import Core.MVC.service.UserIdGenerator;
+
+public abstract class User {
 
     private String firstName;
     private String lastName;
     private String middleName;
     private LocalDate birthDate;
+    private UserIdGenerator userIdGenerator = new UserIdGenerator();
+
+
+    public UserIdGenerator getUserIdGenerator() {
+        return userIdGenerator;
+    }
 
     public User(String firstName, String lastName, String middleName, LocalDate birthDate) {
         this.firstName = firstName;

@@ -1,11 +1,9 @@
 package Core.MVC.controllers;
 import java.util.List;
 
+import Core.MVC.models.Teacher;
 import Core.MVC.service.TeacherService;
 import Core.MVC.view.TeacherView;
-import Core.MVC.view.models.Teacher;
-// import Core.MVC.view.models.TeacherService;
-// import Core.MVC.view.models.TeacherView;
 
 public class TeacherController implements UserController<Teacher> {
     private TeacherService service = new TeacherService();
