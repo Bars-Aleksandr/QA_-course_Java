@@ -1,14 +1,18 @@
-package Core.MVC.view.models;
-import java.time.LocalDate;
+package Core.MVC.models;
 
-public class User {
+import java.time.format.DateTimeFormatter;
+
+public abstract class User {
 
     private String firstName;
     private String lastName;
     private String middleName;
-    private LocalDate birthDate;
+    private String birthDate;
 
-    public User(String firstName, String lastName, String middleName, LocalDate birthDate) {
+    //formatter переносим в view
+    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public User(String firstName, String lastName, String middleName, String birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -39,11 +43,11 @@ public class User {
         this.middleName = middleName;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
