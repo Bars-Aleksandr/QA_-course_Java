@@ -3,8 +3,8 @@ package Core.Infrastructure;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import Core.MVC.view.models.Student;
-import Core.MVC.view.models.StudyGroup;
+import Core.MVC.models.Student;
+import Core.MVC.models.StudyGroup;
 
 public class StudyGroupIterator implements Iterator<Student> {
     private int index = 0;

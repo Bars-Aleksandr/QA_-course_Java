@@ -1,7 +1,7 @@
 package Core.MVC.view;
 import java.util.List;
 
-import Core.MVC.view.models.Student;
+import Core.MVC.models.Student;
 
 public class StudentView implements UserView<Student> {
 

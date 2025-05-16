@@ -1,6 +1,6 @@
 package Core.MVC.controllers;
 
-import Core.MVC.view.models.User;
+import Core.MVC.models.User;
 
 public interface UserController<T extends User> {
 

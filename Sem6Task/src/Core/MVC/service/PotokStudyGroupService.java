@@ -1,5 +1,5 @@
 package Core.MVC.service;
-import Core.MVC.view.models.PotokStudyGroup;
+import Core.MVC.models.PotokStudyGroup;
 
 public class PotokStudyGroupService {
 

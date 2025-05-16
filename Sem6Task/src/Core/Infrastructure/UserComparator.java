@@ -1,7 +1,7 @@
 package Core.Infrastructure;
 import java.util.Comparator;
 
-import Core.MVC.view.models.User;
+import Core.MVC.models.User;
 
 public class UserComparator<T extends User> implements Comparator<T> {
 

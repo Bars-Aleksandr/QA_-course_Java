@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import Core.Infrastructure.UserComparator;
-import Core.MVC.view.models.Student;
-import Core.MVC.view.models.StudyGroup;
+import Core.MVC.models.Student;
+import Core.MVC.models.StudyGroup;
 
 public class StudyGroupService {
 
