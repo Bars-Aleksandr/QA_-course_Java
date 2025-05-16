@@ -1,18 +1,24 @@
+//Применяем S – Single Responsibility (Принцип единственной ответственности), Liskov Substitution (L),
 package Core.MVC.models;
 
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+
+import Core.MVC.service.UserIdGenerator;
 
 public abstract class User {
 
     private String firstName;
     private String lastName;
     private String middleName;
-    private String birthDate;
+    private LocalDate birthDate;
+    private UserIdGenerator userIdGenerator = new UserIdGenerator();
 
-    //formatter переносим в view
-    protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    public User(String firstName, String lastName, String middleName, String birthDate) {
+    public UserIdGenerator getUserIdGenerator() {
+        return userIdGenerator;
+    }
+
+    public User(String firstName, String lastName, String middleName, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -43,11 +49,11 @@ public abstract class User {
         this.middleName = middleName;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

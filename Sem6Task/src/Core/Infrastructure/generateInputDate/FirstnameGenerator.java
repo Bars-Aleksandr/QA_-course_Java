@@ -9,7 +9,7 @@ public class FirstnameGenerator  extends InputDataGeneration{
                 "Марков", "Скворцов", "Медведев", "Тарасов", "Сидорук"};
 
         @Override
-        public String dataGenerator() {
+        public String dataNamesGenerator() {
             return firstNames[random.nextInt(firstNames.length)];
     }
 

@@ -1,18 +1,17 @@
-// Применяем принцип Single responsibility аналогично классу Student
+// Применяем принципы  аналогично классу Student
 
 package Core.MVC.models;
-//import java.time.LocalDate;
 
-//import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 public class Teacher extends User implements Comparable<Teacher> {
-    private static Long teacherIdNext = 1L;
+    
     private Long teacherId = Long.valueOf(0);
   
 
-    public Teacher(String firstName, String lastName, String middleName, String birthDate) {
+    public Teacher(String firstName, String lastName, String middleName, LocalDate birthDate) {
         super(firstName, lastName, middleName, birthDate);
-        this.teacherId = teacherIdNext++;
+        this.teacherId = getUserIdGenerator().getNextUserID(Type.STUDENT);;
     }
 
     public Long getTeacherId() {
@@ -36,7 +35,7 @@ public class Teacher extends User implements Comparable<Teacher> {
     @Override
     public String toString() {
         return String.format("%2d %-15s %-15s %-15s %s", teacherId,
-                getFirstName(), getLastName(), getMiddleName(), getBirthDate().formatted(formatter));
+                getFirstName(), getLastName(), getMiddleName(), getBirthDate());
     }
 
 }

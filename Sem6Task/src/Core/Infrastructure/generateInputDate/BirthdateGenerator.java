@@ -3,7 +3,7 @@ package Core.Infrastructure.generateInputDate;
 class BirthdateGenerator extends InputDataGeneration {
     
     @Override
-    public String dataGenerator() {
+    public String dataNamesGenerator() {
         int year = 2000 + random.nextInt(17);
         int month = random.nextInt(12) + 1;
         int day = generateDay(month, year);

@@ -19,7 +19,7 @@ public class MiddlenameGenerator extends InputDataGeneration{
         "Александрович"
 };
     @Override
-    public String dataGenerator() {
+    public String dataNamesGenerator() {
         return middlenames[random.nextInt(middlenames.length)];
     }
 
