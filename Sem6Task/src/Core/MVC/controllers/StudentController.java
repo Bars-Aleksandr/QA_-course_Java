@@ -1,12 +1,12 @@
 package Core.MVC.controllers;
 import java.util.List;
 
+import Core.MVC.models.PotokStudyGroup;
+import Core.MVC.models.Student;
+import Core.MVC.models.StudyGroup;
 import Core.MVC.service.PotokStudyGroupService;
 import Core.MVC.service.StudyGroupService;
 import Core.MVC.view.StudentView;
-import Core.MVC.view.models.PotokStudyGroup;
-import Core.MVC.view.models.Student;
-import Core.MVC.view.models.StudyGroup;
 
 
 public class StudentController implements UserController<Student> {

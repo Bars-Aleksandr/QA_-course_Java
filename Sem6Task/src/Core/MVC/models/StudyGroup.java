@@ -1,4 +1,4 @@
-package Core.MVC.view.models;
+package Core.MVC.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
