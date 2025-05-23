@@ -1,16 +1,18 @@
-// Применяем принцип Single responsibility
-// Student и Teacher наследуется от User поэтому все общие поля переносим в User
-//D — Dependency Inversion (Принцип инверсии зависимостей) объект getUserIdGenerator() создается через обстрактный класс
+// Применяем принцип Single responsibility и LSP Student и Teacher расширяют User, и всё выглядит корректно. Они используют базовые поля и методы без нарушения контрактов.
+// Student и Teacher наследуется от User поэтому все общие поля переносим в User 
+
 package Core.MVC.models;
 
 import java.time.LocalDate;
 
+
+
 public class Student extends User implements Comparable<Student> {
     private final Long studentId;
 
-    public Student(String firstName, String lastName, String middleName, LocalDate birthDate) {
+    public Student(String firstName, String lastName, String middleName, LocalDate birthDate, Long id) {
         super(firstName, lastName, middleName, birthDate);
-        this.studentId = getUserIdGenerator().getNextUserID(Type.STUDENT);
+        this.studentId = id;
     }
 
     public Student(Long studentId, String firstName, String lastName, String middleName, LocalDate birthDate) {

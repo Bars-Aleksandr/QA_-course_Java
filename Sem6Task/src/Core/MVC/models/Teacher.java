@@ -9,9 +9,9 @@ public class Teacher extends User implements Comparable<Teacher> {
     private Long teacherId = Long.valueOf(0);
   
 
-    public Teacher(String firstName, String lastName, String middleName, LocalDate birthDate) {
+    public Teacher(String firstName, String lastName, String middleName, LocalDate birthDate, Long id) {
         super(firstName, lastName, middleName, birthDate);
-        this.teacherId = getUserIdGenerator().getNextUserID(Type.STUDENT);;
+        this.teacherId = id;
     }
 
     public Long getTeacherId() {

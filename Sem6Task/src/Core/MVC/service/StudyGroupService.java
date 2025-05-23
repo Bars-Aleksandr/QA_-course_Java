@@ -1,4 +1,6 @@
 package Core.MVC.service;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -12,23 +14,20 @@ import Core.MVC.models.StudyGroup;
 public class StudyGroupService {
 
     private Student student;
-    private StudyGroup studyGroup = new StudyGroup();
+    private StudyGroup studyGroup;
+    private StudentService studentService;
 
-    public StudyGroupService() {
-
-    }
-
-    public StudyGroupService(StudyGroup studyGroup) {
+    public StudyGroupService(StudyGroup studyGroup, StudentService studentService) {
         this.studyGroup = studyGroup;
+        this.studentService = studentService;
     }
 
     public StudyGroup getStudyGroup() {
         return this.studyGroup;
     }
 
-    public void removeStudentByFio(String firstName, String lastName, String middleName,
-            StudyGroup studyGroup) {
-        Iterator<Student> iterator = studyGroup.iterator();
+    public void removeStudentByFio(String firstName, String lastName, String middleName) {
+        Iterator<Student> iterator = this.studyGroup.iterator();
         boolean itemRemoved = false;
         while (iterator.hasNext()) {
             student = iterator.next();
@@ -44,24 +43,24 @@ public class StudyGroupService {
         }
     }
 
-    public void sortStudentsById(StudyGroup studyGroup) {
-        Collections.sort(studyGroup.getStudentsList());
+    public void sortStudentsById() {
+        Collections.sort(this.studyGroup.getStudentsList());
+
     }
 
-    public void shuffleStudyGroup(StudyGroup studyGroup) {
-        Collections.shuffle(studyGroup.getStudentsList());
+    public void shuffleStudyGroup() {
+        Collections.shuffle(this.studyGroup.getStudentsList());
     }
 
-    public void sortStudyGroupByFIO(StudyGroup studyGroup) {
-        List<Student> studentList = new ArrayList<>(studyGroup.getStudentsList());
-        Collections.sort(studentList, new UserComparator<Student>());
-        studyGroup.setStudents(studentList);
+    public void sortStudyGroupByFIO() {
+        List<Student> students = new ArrayList<>(this.studyGroup.getStudentsList());
+        students.sort(new UserComparator<Student>());
+        studyGroup.setStudents(students);
     }
 
-    public void addStudentInStudyGroup(String firstName, String lastName, String middleName, String birthDayStr) {
-        Long i = Long.valueOf(studyGroup.size());
-        Student student = new Student(i, firstName, lastName, middleName, birthDayStr);
-        studyGroup.addStudent(student);
+    public void addStudentInStudyGroup(String firstName, String lastName, String middleName, LocalDate birthDayStr) {
+        Student student = studentService.createUser(firstName, lastName, middleName, birthDayStr);
+        this.studyGroup.addStudent(student);
     }
 
     public void printStudents(StudyGroup studyGroup) {

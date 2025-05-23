@@ -3,7 +3,6 @@ package Core.MVC.models;
 
 import java.time.LocalDate;
 
-import Core.MVC.service.UserIdGenerator;
 
 public abstract class User {
 
@@ -11,12 +10,7 @@ public abstract class User {
     private String lastName;
     private String middleName;
     private LocalDate birthDate;
-    private UserIdGenerator userIdGenerator = new UserIdGenerator();
-
-
-    public UserIdGenerator getUserIdGenerator() {
-        return userIdGenerator;
-    }
+    
 
     public User(String firstName, String lastName, String middleName, LocalDate birthDate) {
         this.firstName = firstName;
@@ -55,6 +49,8 @@ public abstract class User {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+
     }
+   
 
 }

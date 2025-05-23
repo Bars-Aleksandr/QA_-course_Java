@@ -3,7 +3,7 @@ import java.util.List;
 
 import Core.MVC.models.Student;
 
-public class StudentView implements UserView<Student> {
+public class StudentView implements IUserView<Student> {
 
     @Override
     public void sendOnConsole(List<Student> list) {
