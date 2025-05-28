@@ -5,31 +5,55 @@ package Core.MVC.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
+import Core.Infrastructure.generateInputDate.InputDataGeneration;
 import Core.MVC.models.Student;
 import Core.MVC.models.StudyGroup;
-
+import Core.MVC.service.StudentService;
 import Core.MVC.service.StudyGroupService;
+
+import Core.MVC.service.Interfaces.IdGenerator;
 import Core.MVC.view.IUserView;
+import UI.commands.CommandService;
 
 public class StudyGroupController implements IUserController<Student> {
-
 
     private final StudyGroupService studyGroupService;
     private final IUserView<Student> studentView;
     private final StudyGroup studyGroup;
-
+    private final StudentService studentService;
 
     public StudyGroupController(StudyGroupService studyGroupService, IUserView<Student> studentView,
-            StudyGroup studyGroup) {
+            StudyGroup studyGroup, StudentService studentService) {
         this.studyGroupService = studyGroupService;
         this.studentView = studentView;
         this.studyGroup = studyGroup;
+        this.studentService = studentService;
     }
 
-    
+    public IUserView<Student> getStudentView() {
+        return studentView;
+    }
+
+    public void populateStudyGroup(CommandService commandService, IdGenerator<Student> idGenerator,
+            InputDataGeneration firstNameGenerator, InputDataGeneration lastNameGenerator,
+            InputDataGeneration middleNameGenerator, InputDataGeneration birthdayGenerator) {
+        for (int i = 0; i < 10; i++) {
+            commandService.executeCommand(2,
+                    new Student(idGenerator.getNextUserID(), firstNameGenerator.dataNamesGenerator(),
+                            lastNameGenerator.dataNamesGenerator(),
+                            middleNameGenerator.dataNamesGenerator(), birthdayGenerator.dataNamesGenerator()));
+        }
+    }
+
     @Override
-    public void create(String firstName, String lastName, String middleName, LocalDate birthDayStr) {
-        this.studyGroupService.addStudentInStudyGroup(firstName, lastName, middleName, birthDayStr);
+    public void create(String firstName, String lastName, String middleName, LocalDate birthDayLD) {
+        Student student = studentService.createUser(firstName, lastName, middleName, birthDayLD);
+        this.studyGroupService.addStudentInStudyGroup(student);
+    }
+
+    @Override
+    public void create(Student student) {
+        this.studyGroupService.addStudentInStudyGroup(student);
     }
 
     public void removeStudentByFio(String firstName, String lastName, String middleName) {

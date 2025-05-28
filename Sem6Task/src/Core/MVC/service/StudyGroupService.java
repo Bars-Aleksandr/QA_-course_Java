@@ -17,15 +17,16 @@ public class StudyGroupService {
     private StudyGroup studyGroup;
     private StudentService studentService;
 
-    public StudyGroupService(StudyGroup studyGroup, StudentService studentService) {
-        this.studyGroup = studyGroup;
+    public StudyGroupService(StudentService studentService, StudyGroup studyGroup) {
         this.studentService = studentService;
+        this.studyGroup = studyGroup;
     }
 
     public StudyGroup getStudyGroup() {
         return this.studyGroup;
     }
 
+   
     public void removeStudentByFio(String firstName, String lastName, String middleName) {
         Iterator<Student> iterator = this.studyGroup.iterator();
         boolean itemRemoved = false;
@@ -58,8 +59,12 @@ public class StudyGroupService {
         studyGroup.setStudents(students);
     }
 
-    public void addStudentInStudyGroup(String firstName, String lastName, String middleName, LocalDate birthDayStr) {
+    public void addStudentInStudyGroup(String firstName, String lastName, String middleName, String birthDayStr) {
         Student student = studentService.createUser(firstName, lastName, middleName, birthDayStr);
+        this.studyGroup.addStudent(student);
+    }
+
+    public void addStudentInStudyGroup(Student student) {
         this.studyGroup.addStudent(student);
     }
 

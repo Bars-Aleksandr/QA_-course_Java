@@ -8,6 +8,10 @@
 //Применяем принцип разделение ответственности (Single Responsibility Principle)
 package Client;
 
+import Core.Infrastructure.generateInputDate.FirstnameGenerator;
+import Core.Infrastructure.generateInputDate.LastnameGenerator;
+import Core.Infrastructure.generateInputDate.MiddlenameGenerator;
+import Core.Infrastructure.generateInputDate.BirthdateGenerator;
 import Core.MVC.controllers.StudyGroupController;
 import Core.MVC.controllers.TeacherController;
 import Core.MVC.models.Student;
@@ -25,6 +29,7 @@ import Core.MVC.view.TeacherView;
 import UI.commands.CommandService;
 import UI.commands.UserInputHandler;
 import UI.commands.BaseMenu.MenuInvoker;
+import UI.commands.BaseMenu.StudentsMenu;
 import UI.commands.MenuStudentsCommands.CreateStudentCommand;
 import UI.commands.MenuStudentsCommands.PrintStudentsCommand;
 import UI.commands.MenuStudentsCommands.RemoveStudentByFioCommand;
@@ -39,45 +44,29 @@ public class Main {
     public static void main(String[] args) {
 
         final Scanner scanner = new Scanner(System.in);
-        final UserInputHandler handler = new UserInputHandler(scanner);
+
         final CommandService commandService = new CommandService();
-        final MenuInvoker menu = new MenuInvoker(handler, commandService);
+        final UserInputHandler handler = new UserInputHandler(scanner, commandService);
+        final StudyGroup studyGroup = new StudyGroup();
+        final IdGenerator<Student> idGenerator = new StudentIdGenerator();
+        final IdGenerator<Teacher> idGeneratorTeacher = new TeacherIdGenerator();
+        final StudentService studentService = new StudentService(idGenerator);
+        final TeacherService teacherService = new TeacherService(idGeneratorTeacher);
+        final StudyGroupService studyGroupService = new StudyGroupService(studentService, studyGroup);
+        final IUserView<Student> studentView = new StudentView();
+        final IUserView<Teacher> teacherView = new TeacherView();
+        final StudyGroupController studyGroupController = new StudyGroupController(studyGroupService, studentView,
+                studyGroup, studentService);
+        final TeacherController teacherController = new TeacherController(idGeneratorTeacher, teacherService, teacherView);
+        commandService.registersCommand(studyGroupController);
+        studyGroupController.populateStudyGroup(commandService, idGenerator, new FirstnameGenerator(),
+                new LastnameGenerator(), new MiddlenameGenerator(), new BirthdateGenerator());
+        final StudentsMenu studentsMenu = new StudentsMenu();
+        final MenuInvoker menu = new MenuInvoker(handler, commandService, studentsMenu, studyGroupController,
+                teacherController);
+
         menu.start();
 
-
-        // // Основной цикл меню
-        // while (true) {
-        //     System.out.println("\nВыберите действие:");
-        //     System.out.println("1 - Добавить студента");
-        //     System.out.println("2 - Удалить студента по ФИО");
-        //     System.out.println("3 - Отсортировать студентов по ID");
-        //     System.out.println("4 - Вывести список студентов");
-        //     System.out.println("5 - Добавить учителя");
-        //     System.out.println("0 - Выход");
-
-        //     int choice = scanner.nextInt();
-
-        //     if (choice == 0)
-        //         break;
-
-        //     switch (choice) {
-        //         case 1:
-        //             // Можно дополнительно запрашивать параметры у пользователя
-        //             break;
-        //         case 2:
-        //             break;
-        //         case 3:
-        //             break;
-        //         case 4:
-        //             break;
-        //         case 5:
-        //             break;
-        //         default:
-        //             System.out.println("Некорректный выбор");
-        //     }
-
-        //     menu.executeCommand(choice);
-        // }
         scanner.close();
     }
 }

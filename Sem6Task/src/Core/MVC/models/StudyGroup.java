@@ -37,7 +37,6 @@ public class StudyGroup implements Iterable<Student> {
 
     @Override
     public Iterator<Student> iterator() {
-
         return new StudyGroupIterator(this);
     }
 

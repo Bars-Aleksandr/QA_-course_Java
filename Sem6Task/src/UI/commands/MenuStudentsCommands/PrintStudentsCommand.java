@@ -14,9 +14,10 @@ public class PrintStudentsCommand implements ICommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(Object paramObject) {
+        System.out.println("Список студентов");
         List<Student> students = controller.getStudyGroup().getStudentsList();
         controller.sendOnConsoleStudentsList(students);
-        System.out.println("Список студентов выведен на консоль.");
+        
     }
 }

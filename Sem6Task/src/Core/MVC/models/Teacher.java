@@ -2,17 +2,19 @@
 
 package Core.MVC.models;
 
-import java.time.LocalDate;
+
 
 public class Teacher extends User implements Comparable<Teacher> {
     
     private Long teacherId = Long.valueOf(0);
   
 
-    public Teacher(String firstName, String lastName, String middleName, LocalDate birthDate, Long id) {
-        super(firstName, lastName, middleName, birthDate);
+    public Teacher(String firstName, String lastName, String middleName, String birthDateStr, Long id) {
+        super(firstName, lastName, middleName, birthDateStr);
         this.teacherId = id;
     }
+
+    
 
     public Long getTeacherId() {
         return this.teacherId;

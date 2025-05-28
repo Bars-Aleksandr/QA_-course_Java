@@ -1,8 +1,8 @@
 // внедряю зависимости через через конструктор (использование Dependency Injection)
 package Core.MVC.controllers;
+
 import java.time.LocalDate;
 import java.util.List;
-
 
 import Core.MVC.models.Teacher;
 import Core.MVC.models.Type;
@@ -21,11 +21,15 @@ public class TeacherController implements IUserController<Teacher> {
         this.idGenerator = idGenerator;
     }
 
-
     @Override
     public void create(String firstName, String lastName, String middleName, LocalDate birthday) {
         service.addUser(service.createUser(firstName, lastName, middleName, birthday));
-        
+
+    }
+
+    @Override
+    public void create(Teacher user) {
+        service.addUser(user);
     }
 
     public List<Teacher> getTeacherList() {

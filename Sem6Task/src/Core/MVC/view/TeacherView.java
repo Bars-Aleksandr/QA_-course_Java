@@ -12,4 +12,24 @@ public class TeacherView implements IUserView<Teacher> {
         }
     }
 
+    @Override
+    public void printFirstnameText() {
+         System.out.println("Введите имя учителя");
+    }
+
+    @Override
+    public void printLastnameText() {
+        System.out.println("Введите фамилию учителя");
+    }
+
+    @Override
+    public void printMiddlenameText() {
+        System.out.println("Введите отчество учителя");
+    }
+
+    @Override
+    public void printBirthdateText() {
+        System.out.println("Введите дату рождения учителя");
+    }
+
 }

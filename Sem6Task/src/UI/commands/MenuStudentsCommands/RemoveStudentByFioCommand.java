@@ -1,25 +1,22 @@
 package UI.commands.MenuStudentsCommands;
 
 import Core.MVC.controllers.StudyGroupController;
+import Core.MVC.models.Student;
 import UI.commands.ICommand;
 
 public class RemoveStudentByFioCommand implements ICommand {
     private final StudyGroupController controller;
-    private final String firstName;
-    private final String lastName;
-    private final String middleName;
+    
 
-    public RemoveStudentByFioCommand(StudyGroupController controller, String firstName,
-                                     String lastName, String middleName) {
+    public RemoveStudentByFioCommand(StudyGroupController controller) {
         this.controller = controller;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
+        
     }
 
     @Override
-    public void execute() {
-        controller.removeStudentByFio(firstName, lastName, middleName);
+    public void execute(Object paramObject) {
+        Student student = (Student) paramObject;
+        controller.removeStudentByFio(student.getFirstName(), student.getLastName(), student.getMiddleName());
         System.out.println("Студент удален (если такой был).");
     }
 }

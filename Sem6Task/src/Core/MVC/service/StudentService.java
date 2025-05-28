@@ -14,10 +14,13 @@ public class StudentService implements IUserService<Student> {
         this.idGenerator = idGenerator;
 
     }
-
     @Override
-    public Student createUser(String firstName, String lastName, String middleName, LocalDate birthday) {
-        return new Student(idGenerator.getNextUserID(), firstName, lastName, middleName, birthday);
+    public Student createUser(String firstName, String lastName, String middleName, LocalDate birthdayLD) {
+        return new Student(idGenerator.getNextUserID(), firstName, lastName, middleName, birthdayLD);
+    }
+    @Override
+    public Student createUser(String firstName, String lastName, String middleName, String birthdayStr) {
+        return new Student(idGenerator.getNextUserID(), firstName, lastName, middleName, birthdayStr);
     }
 
 }

@@ -11,7 +11,7 @@ public class SortStudentsByIdCommand implements ICommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(Object paramObject) {
         controller.sortStudentsById();
         System.out.println("Студенты отсортированы по ID.");
     }

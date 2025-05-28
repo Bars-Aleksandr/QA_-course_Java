@@ -2,7 +2,7 @@
 package Core.MVC.models;
 
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 
 public abstract class User {
 
@@ -10,13 +10,19 @@ public abstract class User {
     private String lastName;
     private String middleName;
     private LocalDate birthDate;
-    
 
-    public User(String firstName, String lastName, String middleName, LocalDate birthDate) {
+    public User(String firstName, String lastName, String middleName, String birthDateStr) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.birthDate = birthDate;
+        this.birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
+    public User(String firstName, String lastName, String middleName, LocalDate birthDateLD) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDateLD;
     }
 
     public String getFirstName() {
@@ -51,6 +57,5 @@ public abstract class User {
         this.birthDate = birthDate;
 
     }
-   
 
 }

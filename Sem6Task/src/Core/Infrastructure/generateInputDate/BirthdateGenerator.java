@@ -1,6 +1,6 @@
 package Core.Infrastructure.generateInputDate;
 
-class BirthdateGenerator extends InputDataGeneration {
+public class BirthdateGenerator extends InputDataGeneration {
     
     @Override
     public String dataNamesGenerator() {
