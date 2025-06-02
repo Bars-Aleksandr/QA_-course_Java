@@ -40,6 +40,7 @@ public class MenuInvoker {
                     choice = handler.readChoice(studyGroupController.getStudentView());
                     if (choice.userChoice > 0) {
                         commandService.executeCommand(choice.userChoice, choice.userInputObject);
+                        choice.userChoice = 1;
                     }
                     break;
                 case 2:

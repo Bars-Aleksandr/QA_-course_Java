@@ -5,6 +5,7 @@ import java.util.Scanner;
 import Core.MVC.models.Student;
 import Core.MVC.models.Teacher;
 import Core.MVC.models.User;
+import Core.MVC.service.Interfaces.IUserService;
 import Core.MVC.view.IUserView;
 
 public class UserInputHandler {
@@ -16,8 +17,6 @@ public class UserInputHandler {
         this.commandService = commandService;
     }
 
-    
-
     public InputModel readChoice(IUserView<? extends User> view) {
         while (true) {
             try {
@@ -27,12 +26,19 @@ public class UserInputHandler {
                     case 0:
                     case 1:
                         return userModel;
-                    case 3:
-                    case 4:
-                        return userModel;
                     case 2:
                         userModel.userInputObject = readUserName(view);
                         return userModel;
+                    case 3:
+                        return userModel;
+                    case 4:
+                        return userModel;
+                    case 5:
+                        return userModel;
+                    case 6:
+                        userModel.userInputObject = readUserName(view);
+                        return userModel;
+
                     default:
                         break;
                 }
@@ -46,16 +52,20 @@ public class UserInputHandler {
         return scanner.nextLine();
     }
 
-    private User readUserName(IUserView<? extends User> view) {
-        view.printFirstnameText();
-        String firstname = readWithConsoleString();
+    private <T extends User> T readUserName(IUserView<? super User> view, IUserService<T> creator) {
         view.printLastnameText();
         String lastname = readWithConsoleString();
+
+        view.printFirstnameText();
+        String firstname = readWithConsoleString();
+        
         view.printMiddlenameText();
         String middlename = readWithConsoleString();
+
         view.printBirthdateText();
         String birthdate = readWithConsoleString();
-        return new Teacher(firstname, lastname, middlename, birthdate, null);
+        
+        return creator.createUser(firstname, lastname, middlename, birthdate);
     }
 
 }

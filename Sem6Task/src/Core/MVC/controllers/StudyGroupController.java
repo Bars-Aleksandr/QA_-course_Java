@@ -39,8 +39,8 @@ public class StudyGroupController implements IUserController<Student> {
             InputDataGeneration middleNameGenerator, InputDataGeneration birthdayGenerator) {
         for (int i = 0; i < 10; i++) {
             commandService.executeCommand(2,
-                    new Student(idGenerator.getNextUserID(), firstNameGenerator.dataNamesGenerator(),
-                            lastNameGenerator.dataNamesGenerator(),
+                    new Student(idGenerator.getNextUserID(), lastNameGenerator.dataNamesGenerator(),
+                            firstNameGenerator.dataNamesGenerator(),
                             middleNameGenerator.dataNamesGenerator(), birthdayGenerator.dataNamesGenerator()));
         }
     }
