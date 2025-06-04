@@ -31,16 +31,18 @@ public class MenuInvoker {
         boolean exit = false;
         InputModel choice;
         appMenu.show();
-        choice = handler.readChoice(studyGroupController.getStudentView());
+        choice = handler.readChoice(studyGroupController.getStudentView(),studyGroupController.getStudentService());
         while (!exit) {
             
             switch (choice.userChoice) {
                 case 1:
                     studentsMenu.show();
-                    choice = handler.readChoice(studyGroupController.getStudentView());
+                    choice = handler.readChoice(studyGroupController.getStudentView(), studyGroupController.getStudentService());
                     if (choice.userChoice > 0) {
                         commandService.executeCommand(choice.userChoice, choice.userInputObject);
+                        choice.userChoice = 1;
                     }
+                    
                     break;
                 case 2:
                     // teachersMenu.show();
@@ -50,7 +52,7 @@ public class MenuInvoker {
                     break;
                 case 0:
                     appMenu.show();
-                    choice = handler.readChoice(studyGroupController.getStudentView());
+                    choice = handler.readChoice(studyGroupController.getStudentView(), studyGroupController.getStudentService());
                     if (choice.userChoice == 0) {
                         exit = true;
                         System.out.println("Выход из программы. До свидания!");

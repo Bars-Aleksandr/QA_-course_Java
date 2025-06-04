@@ -11,14 +11,14 @@ public abstract class User {
     private String middleName;
     private LocalDate birthDate;
 
-    public User(String firstName, String lastName, String middleName, String birthDateStr) {
+    public User(String lastName, String firstName,  String middleName, String birthDateStr) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
-    public User(String firstName, String lastName, String middleName, LocalDate birthDateLD) {
+    public User(String lastName, String firstName, String middleName, LocalDate birthDateLD) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

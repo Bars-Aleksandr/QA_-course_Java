@@ -11,13 +11,13 @@ import java.time.LocalDate;
 public class Student extends User implements Comparable<Student> {
     private final Long studentId;
 
-    public Student(Long id, String firstName, String lastName, String middleName, LocalDate birthDate) {
-        super(firstName, lastName, middleName, birthDate);
+    public Student(Long id, String lastName, String firstName, String middleName, LocalDate birthDate) {
+        super(lastName, firstName,  middleName, birthDate);
         this.studentId = id;
     }
 
-    public Student(Long studentId, String firstName, String lastName, String middleName, String birthDateString) {
-        super(firstName, lastName, middleName, birthDateString);
+    public Student(Long studentId, String lastName, String firstName, String middleName, String birthDateString) {
+        super(lastName, firstName, middleName, birthDateString);
         this.studentId = studentId;
     }
 
@@ -29,7 +29,7 @@ public class Student extends User implements Comparable<Student> {
     @Override
     public String toString() {
         return String.format("%2d %-15s %-15s %-15s %s", studentId,
-                getFirstName(), getLastName(), getMiddleName(), getBirthDate());
+                getLastName(), getFirstName(), getMiddleName(), getBirthDate());
     }
 
     @Override
