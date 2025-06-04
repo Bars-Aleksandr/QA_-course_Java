@@ -10,7 +10,7 @@ import Core.MVC.models.Student;
 import Core.MVC.models.StudyGroup;
 import Core.MVC.service.StudentService;
 import Core.MVC.service.StudyGroupService;
-
+import Core.MVC.service.Interfaces.IUserService;
 import Core.MVC.service.Interfaces.IdGenerator;
 import Core.MVC.view.IUserView;
 import UI.commands.CommandService;
@@ -20,7 +20,7 @@ public class StudyGroupController implements IUserController<Student> {
     private final StudyGroupService studyGroupService;
     private final IUserView<Student> studentView;
     private final StudyGroup studyGroup;
-    private final StudentService studentService;
+    private final IUserService<Student> studentService;
 
     public StudyGroupController(StudyGroupService studyGroupService, IUserView<Student> studentView,
             StudyGroup studyGroup, StudentService studentService) {
@@ -29,7 +29,10 @@ public class StudyGroupController implements IUserController<Student> {
         this.studyGroup = studyGroup;
         this.studentService = studentService;
     }
-
+    
+    public IUserService<Student> getStudentService(){
+        return studentService;
+    }
     public IUserView<Student> getStudentView() {
         return studentView;
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import Core.Infrastructure.UserComparator;
 import Core.MVC.models.Teacher;
-
+import Core.MVC.models.User;
 import Core.MVC.service.Interfaces.IUserService;
 import Core.MVC.service.Interfaces.IdGenerator;
 
@@ -36,5 +36,11 @@ public class TeacherService implements IUserService<Teacher> {
 
     public void sortUserByFIO() {
         Collections.sort(teachers, new UserComparator<Teacher>());
+    }
+
+    @Override
+    public Teacher createUser(String firstName, String lastName, String middleName, String birthday) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
     }
 }

@@ -1,13 +1,12 @@
 package UI.commands.MenuStudentsCommands;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 import Core.MVC.controllers.StudyGroupController;
 import Core.MVC.models.Student;
 import Core.MVC.models.User;
 import UI.commands.ICommand;
-import UI.commands.UserInputHandler;
+
 
 public class CreateStudentCommand implements ICommand {
     private final StudyGroupController controller;
@@ -26,7 +25,7 @@ public class CreateStudentCommand implements ICommand {
             controller.create(student);
         } else {
             User user = (User) paramObject;
-            controller.create(user.getFirstName(), user.getLastName(), user.getMiddleName(), user.getBirthDate());
+            controller.create(user.getLastName(), user.getFirstName(), user.getMiddleName(), user.getBirthDate());
         }
 
         System.out.println("Студент успешно добавлен.");
