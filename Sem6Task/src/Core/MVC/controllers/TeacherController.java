@@ -4,36 +4,53 @@ package Core.MVC.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
+import Core.Infrastructure.generateInputDate.InputDataGeneration;
 import Core.MVC.models.Teacher;
-import Core.MVC.models.Type;
-import Core.MVC.service.TeacherService;
+
+import Core.MVC.service.TeacherBuilder;
+import Core.MVC.service.TeachersService;
 import Core.MVC.service.Interfaces.IdGenerator;
 import Core.MVC.view.IUserView;
+import UI.commands.CommandsTeacherService;
 
 public class TeacherController implements IUserController<Teacher> {
-    private final TeacherService service;
+    private final TeacherBuilder teacherBuilder;
+    private final TeachersService teacherService;
     private final IUserView<Teacher> teacherView;
-    private final IdGenerator<Teacher> idGenerator;
 
-    public TeacherController(IdGenerator<Teacher> idGenerator, TeacherService service, IUserView<Teacher> teacherView) {
-        this.service = service;
+    public TeacherController(IdGenerator<Teacher> idGenerator, TeachersService teacherService,
+            IUserView<Teacher> teacherView, TeacherBuilder teacherBuilder) {
+        this.teacherService = teacherService;
         this.teacherView = teacherView;
-        this.idGenerator = idGenerator;
+        this.teacherBuilder = teacherBuilder;
+
+    }
+
+    public void autoGenerateTeachers(CommandsTeacherService commandService, IdGenerator<Teacher> idGenerator,
+            InputDataGeneration lastNameGenerator, InputDataGeneration firstNameGenerator,
+            InputDataGeneration middleNameGenerator, InputDataGeneration birthdayGenerator) {
+        for (int i = 0; i < 5; i++) {
+            commandService.executeCommand(2,
+                    new Teacher(lastNameGenerator.dataNamesGenerator(),
+                            firstNameGenerator.dataNamesGenerator(),
+                            middleNameGenerator.dataNamesGenerator(), birthdayGenerator.dataNamesGenerator(),
+                            idGenerator.getNextUserID()));
+        }
     }
 
     @Override
     public void create(String firstName, String lastName, String middleName, LocalDate birthday) {
-        service.addUser(service.createUser(firstName, lastName, middleName, birthday));
+        teacherService.addUser(teacherService.createUser(firstName, lastName, middleName, birthday));
 
     }
 
     @Override
     public void create(Teacher user) {
-        service.addUser(user);
+        teacherService.addUser(user);
     }
 
     public List<Teacher> getTeacherList() {
-        return service.getUserList();
+        return teacherService.getUserList();
     }
 
     public void sendOnConsoleTeacherList() {
@@ -41,7 +58,15 @@ public class TeacherController implements IUserController<Teacher> {
     }
 
     public void sortTeachersByFIO() {
-        service.sortUserByFIO();
+        teacherService.sortUserByFIO();
+    }
+
+    public TeacherBuilder getBuilder() {
+        return teacherBuilder;
+    }
+
+    public IUserView<Teacher> getTeacherView() {
+        return teacherView;
     }
 
 }

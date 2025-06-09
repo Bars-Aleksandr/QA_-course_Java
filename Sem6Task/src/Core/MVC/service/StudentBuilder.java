@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 import Core.MVC.models.Student;
 
-import Core.MVC.service.Interfaces.IUserService;
+import Core.MVC.service.Interfaces.IUserBuilder;
 import Core.MVC.service.Interfaces.IdGenerator;
 
-public class StudentService implements IUserService<Student> {
+public class StudentBuilder implements IUserBuilder<Student> {
     private final IdGenerator<Student> idGenerator;
 
-    public StudentService(IdGenerator<Student> idGenerator) {
+    public StudentBuilder(IdGenerator<Student> idGenerator) {
         this.idGenerator = idGenerator;
 
     }

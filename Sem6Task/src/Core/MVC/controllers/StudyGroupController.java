@@ -8,36 +8,37 @@ import java.util.List;
 import Core.Infrastructure.generateInputDate.InputDataGeneration;
 import Core.MVC.models.Student;
 import Core.MVC.models.StudyGroup;
-import Core.MVC.service.StudentService;
+import Core.MVC.service.StudentBuilder;
 import Core.MVC.service.StudyGroupService;
-import Core.MVC.service.Interfaces.IUserService;
+import Core.MVC.service.Interfaces.IUserBuilder;
 import Core.MVC.service.Interfaces.IdGenerator;
 import Core.MVC.view.IUserView;
-import UI.commands.CommandService;
+
+import UI.commands.CommandsStudyGroupService;
 
 public class StudyGroupController implements IUserController<Student> {
 
     private final StudyGroupService studyGroupService;
     private final IUserView<Student> studentView;
     private final StudyGroup studyGroup;
-    private final IUserService<Student> studentService;
+    private final IUserBuilder<Student> studentBuilder;
 
     public StudyGroupController(StudyGroupService studyGroupService, IUserView<Student> studentView,
-            StudyGroup studyGroup, StudentService studentService) {
+            StudyGroup studyGroup, StudentBuilder studentBuilder) {
         this.studyGroupService = studyGroupService;
         this.studentView = studentView;
         this.studyGroup = studyGroup;
-        this.studentService = studentService;
+        this.studentBuilder = studentBuilder;
     }
     
-    public IUserService<Student> getStudentService(){
-        return studentService;
+    public IUserBuilder<Student> getStudentBuilder(){
+        return studentBuilder;
     }
     public IUserView<Student> getStudentView() {
         return studentView;
     }
 
-    public void populateStudyGroup(CommandService commandService, IdGenerator<Student> idGenerator,
+    public void autoGenerateStudyGroup(CommandsStudyGroupService commandService, IdGenerator<Student> idGenerator,
             InputDataGeneration firstNameGenerator, InputDataGeneration lastNameGenerator,
             InputDataGeneration middleNameGenerator, InputDataGeneration birthdayGenerator) {
         for (int i = 0; i < 10; i++) {
@@ -49,8 +50,8 @@ public class StudyGroupController implements IUserController<Student> {
     }
 
     @Override
-    public void create(String firstName, String lastName, String middleName, LocalDate birthDayLD) {
-        Student student = studentService.createUser(firstName, lastName, middleName, birthDayLD);
+    public void create(String lastName, String firstName, String middleName, LocalDate birthDayLD) {
+        Student student = studentBuilder.createUser(lastName, firstName, middleName, birthDayLD);
         this.studyGroupService.addStudentInStudyGroup(student);
     }
 
@@ -59,8 +60,8 @@ public class StudyGroupController implements IUserController<Student> {
         this.studyGroupService.addStudentInStudyGroup(student);
     }
 
-    public void removeStudentByFio(String firstName, String lastName, String middleName) {
-        this.studyGroupService.removeStudentByFio(firstName, lastName, middleName);
+    public void removeStudentByFio(String lastName, String firstName, String middleName) {
+        this.studyGroupService.removeStudentByFio(lastName, firstName, middleName);
     }
 
     public void sortStudentsById() {

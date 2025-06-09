@@ -17,56 +17,75 @@ import Core.MVC.controllers.TeacherController;
 import Core.MVC.models.Student;
 import Core.MVC.models.StudyGroup;
 import Core.MVC.models.Teacher;
-import Core.MVC.service.StudentService;
+import Core.MVC.service.StudentBuilder;
 import Core.MVC.service.StudyGroupService;
-import Core.MVC.service.TeacherService;
+import Core.MVC.service.TeacherBuilder;
 import Core.MVC.service.StudentIdGenerator;
 import Core.MVC.service.TeacherIdGenerator;
+import Core.MVC.service.TeachersService;
 import Core.MVC.service.Interfaces.IdGenerator;
 import Core.MVC.view.IUserView;
 import Core.MVC.view.StudentView;
 import Core.MVC.view.TeacherView;
-import UI.commands.CommandService;
+import UI.commands.CommandsStudyGroupService;
+import UI.commands.CommandsTeacherService;
 import UI.commands.UserInputHandler;
 import UI.commands.BaseMenu.MenuInvoker;
 import UI.commands.BaseMenu.StudentsMenu;
-import UI.commands.MenuStudentsCommands.CreateStudentCommand;
-import UI.commands.MenuStudentsCommands.PrintStudentsCommand;
-import UI.commands.MenuStudentsCommands.RemoveStudentByFioCommand;
-import UI.commands.MenuStudentsCommands.SortStudentsByIdCommand;
-import UI.commands.TeacherCommands.CreateTeacherCommand;
-
-import java.time.LocalDate;
+import UI.commands.BaseMenu.TeachersMenu;
 
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
 
-        final Scanner scanner = new Scanner(System.in);
+        /**
+         * * В методе main происходит инициализация всех компонентов приложения,
+         * настройка зависимостей и запуск меню.
+         * 
+         * @param входных параметров нет
+         */
+        public static void main(String[] args) {
 
-        final CommandService commandService = new CommandService();
-        final UserInputHandler handler = new UserInputHandler(scanner, commandService);
-        final StudyGroup studyGroup = new StudyGroup();
-        final IdGenerator<Student> idGenerator = new StudentIdGenerator();
-        final IdGenerator<Teacher> idGeneratorTeacher = new TeacherIdGenerator();
-        final StudentService studentService = new StudentService(idGenerator);
-        final TeacherService teacherService = new TeacherService(idGeneratorTeacher);
-        final StudyGroupService studyGroupService = new StudyGroupService(studentService, studyGroup);
-        final IUserView<Student> studentView = new StudentView();
-        final IUserView<Teacher> teacherView = new TeacherView();
-        final StudyGroupController studyGroupController = new StudyGroupController(studyGroupService, studentView,
-                studyGroup, studentService);
-        final TeacherController teacherController = new TeacherController(idGeneratorTeacher, teacherService, teacherView);
-        commandService.registersCommand(studyGroupController);
-        studyGroupController.populateStudyGroup(commandService, idGenerator, new FirstnameGenerator(),
-                new LastnameGenerator(), new MiddlenameGenerator(), new BirthdateGenerator());
-        final StudentsMenu studentsMenu = new StudentsMenu();
-        final MenuInvoker menu = new MenuInvoker(handler, commandService, studentsMenu, studyGroupController,
-                teacherController);
+                final Scanner scanner = new Scanner(System.in);
 
-        menu.start();
+                final StudyGroup studyGroup = new StudyGroup();
+                final IdGenerator<Student> idGenerator = new StudentIdGenerator();
+                final IdGenerator<Teacher> idGeneratorTeacher = new TeacherIdGenerator();
+                final StudentBuilder studentBuilder = new StudentBuilder(idGenerator);
+                final TeacherBuilder teacherBuilder = new TeacherBuilder(idGeneratorTeacher);
+                final StudyGroupService studyGroupService = new StudyGroupService(studentBuilder, studyGroup);
+                final IUserView<Student> studentView = new StudentView();
+                final IUserView<Teacher> teacherView = new TeacherView();
+                final StudyGroupController studyGroupController = new StudyGroupController(studyGroupService,
+                                studentView,
+                                studyGroup, studentBuilder);
 
-        scanner.close();
-    }
+                final StudentsMenu studentsMenu = new StudentsMenu();
+                final TeachersMenu teachersMenu = new TeachersMenu();
+                final CommandsStudyGroupService studyGroupCommandService = new CommandsStudyGroupService();
+                final TeachersService teacherService = new TeachersService(teacherBuilder);
+                final TeacherController teacherController = new TeacherController(idGeneratorTeacher, teacherService,
+                                teacherView, teacherBuilder);
+                final CommandsTeacherService teachersCommandsService = new CommandsTeacherService(teacherController);
+                final UserInputHandler handler = new UserInputHandler(scanner, studyGroupCommandService);
+                final MenuInvoker menu = new MenuInvoker(handler, studyGroupCommandService, studentsMenu,
+                                studyGroupController,
+                                teacherController, teachersMenu, teachersCommandsService);
+
+                studyGroupCommandService.registersCommand(studyGroupController);
+
+                /**
+                 * Метод для генерация тестовых данных для группы студентов
+                 */
+                studyGroupController.autoGenerateStudyGroup(studyGroupCommandService, idGenerator,
+                                new FirstnameGenerator(),
+                                new LastnameGenerator(), new MiddlenameGenerator(), new BirthdateGenerator());
+                /**
+                 * Метод для генерация списка учителей
+                 */
+                teacherController.autoGenerateTeachers(teachersCommandsService, idGeneratorTeacher, new LastnameGenerator(), new FirstnameGenerator(), new MiddlenameGenerator(), new BirthdateGenerator());
+                menu.start();
+
+                scanner.close();
+        }
 }

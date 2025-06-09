@@ -5,14 +5,13 @@ package Core.MVC.models;
 
 import java.time.LocalDate;
 
-
-
+import Core.MVC.view.SimpleDateFormatter;
 
 public class Student extends User implements Comparable<Student> {
     private final Long studentId;
 
     public Student(Long id, String lastName, String firstName, String middleName, LocalDate birthDate) {
-        super(lastName, firstName,  middleName, birthDate);
+        super(lastName, firstName, middleName, birthDate);
         this.studentId = id;
     }
 
@@ -25,11 +24,14 @@ public class Student extends User implements Comparable<Student> {
         return studentId;
     }
 
+    private String getFormattedBirthDate() {
+        return new SimpleDateFormatter().format(getBirthDate());
+    }
 
     @Override
     public String toString() {
         return String.format("%2d %-15s %-15s %-15s %s", studentId,
-                getLastName(), getFirstName(), getMiddleName(), getBirthDate());
+                getLastName(), getFirstName(), getMiddleName(), getFormattedBirthDate());
     }
 
     @Override

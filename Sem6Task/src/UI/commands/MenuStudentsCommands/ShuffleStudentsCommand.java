@@ -11,7 +11,7 @@ public class ShuffleStudentsCommand implements ICommand{
     @Override
     public void execute(Object paraObject) {
         controller.shuffleStudyGroup();
-        System.out.println("Списое студентов перемешан");   
+        System.out.println("Список студентов перемешан");   
     }
 
 }

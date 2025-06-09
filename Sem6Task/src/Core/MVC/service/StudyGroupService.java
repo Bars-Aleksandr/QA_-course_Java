@@ -1,6 +1,6 @@
 package Core.MVC.service;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -15,10 +15,10 @@ public class StudyGroupService {
 
     private Student student;
     private StudyGroup studyGroup;
-    private StudentService studentService;
+    private StudentBuilder studentBuilder;
 
-    public StudyGroupService(StudentService studentService, StudyGroup studyGroup) {
-        this.studentService = studentService;
+    public StudyGroupService(StudentBuilder studentBuilder, StudyGroup studyGroup) {
+        this.studentBuilder = studentBuilder;
         this.studyGroup = studyGroup;
     }
 
@@ -27,7 +27,7 @@ public class StudyGroupService {
     }
 
    
-    public void removeStudentByFio(String firstName, String lastName, String middleName) {
+    public void removeStudentByFio(String lastName, String firstName, String middleName) {
         Iterator<Student> iterator = this.studyGroup.iterator();
         boolean itemRemoved = false;
         while (iterator.hasNext()) {
@@ -60,7 +60,7 @@ public class StudyGroupService {
     }
 
     public void addStudentInStudyGroup(String firstName, String lastName, String middleName, String birthDayStr) {
-        Student student = studentService.createUser(firstName, lastName, middleName, birthDayStr);
+        Student student = studentBuilder.createUser(firstName, lastName, middleName, birthDayStr);
         this.studyGroup.addStudent(student);
     }
 

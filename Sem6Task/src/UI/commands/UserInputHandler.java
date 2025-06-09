@@ -2,36 +2,55 @@ package UI.commands;
 
 import java.util.Scanner;
 
-
 import Core.MVC.models.User;
-import Core.MVC.service.Interfaces.IUserService;
+
 import Core.MVC.view.IUserView;
+import UI.commands.BaseMenu.UserDTO;
 
 public class UserInputHandler {
-    Scanner scanner;
-    CommandService commandService;
+    private Scanner scanner;
+    private InputModel userModel = new InputModel();
 
-    public UserInputHandler(Scanner scanner, CommandService commandService) {
+    public UserInputHandler(Scanner scanner, CommandsStudyGroupService commandStudyGroupService) {
         this.scanner = scanner;
-        this.commandService = commandService;
+
     }
 
-    public InputModel readChoice(IUserView<? extends User> view, IUserService<User> userService) {
+    public InputModel readChoice() {
         while (true) {
             try {
                 var userModel = new InputModel();
+                userModel.userChoice = Integer.parseInt(scanner.nextLine());
+                return userModel;
+            } catch (NumberFormatException e) {
+                System.out.print("Пожалуйста, введите число: ");
+            }
+        }
+
+    }
+
+    public InputModel readChoice(IUserView<? extends User> view) {
+        while (true) {
+            try {
+
                 userModel.userChoice = Integer.parseInt(scanner.nextLine());
                 switch (userModel.userChoice) {
                     case 0:
                     case 1:
                         return userModel;
                     case 2:
-                        userModel.userInputObject = readUserName(view, userService);
+                        userModel.userInputObject = readUserName(view);
                         return userModel;
                     case 3:
+                        return userModel;
                     case 4:
                         return userModel;
-
+                    case 5:
+                        return userModel;
+                    case 6:
+                        System.out.println("Введите ФИО удаляемого пользователя");
+                        userModel.userInputObject = readUserName(view);
+                        return userModel;
                     default:
                         break;
                 }
@@ -45,9 +64,8 @@ public class UserInputHandler {
         return scanner.nextLine();
     }
 
-    private User readUserName(
-            IUserView<? extends User> view,
-            IUserService<User> userService) {
+    private UserDTO readUserName(IUserView<? extends User> view) {
+        String birthdateStr;
 
         view.printLastnameText();
         String lastname = readWithConsoleString();
@@ -57,11 +75,14 @@ public class UserInputHandler {
 
         view.printMiddlenameText();
         String middlename = readWithConsoleString();
+        if (userModel.userChoice == 2) {
+            view.printBirthdateText();
+            birthdateStr = readWithConsoleString();
+        } else {
+            birthdateStr = "00.00.0001";
+        }
 
-        view.printBirthdateText();
-        String birthdateStr = readWithConsoleString();
-
-        return userService.createUser(firstname, lastname, middlename, birthdateStr);
+        return new UserDTO(lastname, firstname, middlename, birthdateStr);
     }
 
 }

@@ -7,13 +7,15 @@ import Core.MVC.controllers.StudyGroupController;
 import UI.commands.MenuStudentsCommands.CreateStudentCommand;
 import UI.commands.MenuStudentsCommands.PrintStudentsCommand;
 import UI.commands.MenuStudentsCommands.RemoveStudentByFioCommand;
+import UI.commands.MenuStudentsCommands.ShuffleStudentsCommand;
+import UI.commands.MenuStudentsCommands.SortStudentsByFIOCommand;
 import UI.commands.MenuStudentsCommands.SortStudentsByIdCommand;
 
-public class CommandService {
+public class CommandsStudyGroupService {
     
     private Map<Integer, ICommand> commands = new HashMap<>();
 
-    public CommandService(){
+    public CommandsStudyGroupService(){
 
     }
 
@@ -35,8 +37,8 @@ public class CommandService {
         registerCommand(1, new PrintStudentsCommand(controller));
         registerCommand(2, new CreateStudentCommand(controller));
         registerCommand(3, new SortStudentsByIdCommand(controller));
-        // registerCommand(4, new SortStudentsByFIOCommand(controller));
-        // registerCommand(5, new ShuffleStudentsCommand(controller));
+        registerCommand(4, new SortStudentsByFIOCommand(controller));
+        registerCommand(5, new ShuffleStudentsCommand(controller));
         registerCommand(6, new RemoveStudentByFioCommand(controller));
     }
 

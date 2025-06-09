@@ -4,6 +4,8 @@ package Core.MVC.models;
 
 import java.time.LocalDate;
 
+import Core.MVC.view.SimpleDateFormatter;
+
 public class Teacher extends User implements Comparable<Teacher> {
     
     private Long teacherId = Long.valueOf(0);
@@ -23,14 +25,9 @@ public class Teacher extends User implements Comparable<Teacher> {
         return this.teacherId;
     }
 
-    // private static LocalDate birthDateStringToLocalDate(String birthDateStr) {
-
-    //     try {
-    //         return LocalDate.parse(birthDateStr, formatter);
-    //     } catch (DateTimeParseException e) {
-    //         throw new IllegalArgumentException("Неверный формат даты рождения dd.mm.yyyy - " + birthDateStr, e);
-    //     }
-    // }
+    private String getFormattedBirthDate() {
+        return new SimpleDateFormatter().format(getBirthDate());
+    }
 
     @Override
     public int compareTo(Teacher o) {
@@ -40,7 +37,7 @@ public class Teacher extends User implements Comparable<Teacher> {
     @Override
     public String toString() {
         return String.format("%2d %-15s %-15s %-15s %s", teacherId,
-                getFirstName(), getLastName(), getMiddleName(), getBirthDate());
+                getFirstName(), getLastName(), getMiddleName(), getFormattedBirthDate());
     }
 
 }
