@@ -1,18 +1,29 @@
-package Core.MVC.view.models;
-import java.time.LocalDate;
+//Применяем S – Single Responsibility (Принцип единственной ответственности), 
+//Liskov Substitution (L), Можно использовать User вместо его подклассов
+package Core.MVC.models;
 
-public class User {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public abstract class User {
 
     private String firstName;
     private String lastName;
     private String middleName;
     private LocalDate birthDate;
 
-    public User(String firstName, String lastName, String middleName, LocalDate birthDate) {
+    public User(String lastName, String firstName,  String middleName, String birthDateStr) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.birthDate = birthDate;
+        this.birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
+    public User(String lastName, String firstName, String middleName, LocalDate birthDateLD) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthDate = birthDateLD;
     }
 
     public String getFirstName() {
@@ -45,6 +56,7 @@ public class User {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+
     }
 
 }

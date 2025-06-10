@@ -1,9 +1,11 @@
-package Core.MVC.view.models;
+//SRP: класс отвечает за управление группой студентов: добавляет, удаляет, возвращает, выводит.
+//OCP: класс можно расширять, не меняя его текущую реализацию.
+//DIP: класс зависит от абстракций (Iterable, Iterator).
+package Core.MVC.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-//import java.util.NoSuchElementException;
 
 import Core.Infrastructure.StudyGroupIterator;
 
@@ -38,7 +40,6 @@ public class StudyGroup implements Iterable<Student> {
 
     @Override
     public Iterator<Student> iterator() {
-
         return new StudyGroupIterator(this);
     }
 
