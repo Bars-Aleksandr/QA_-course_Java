@@ -1,4 +1,5 @@
-//Применяем S – Single Responsibility (Принцип единственной ответственности), Liskov Substitution (L),
+//Применяем S – Single Responsibility (Принцип единственной ответственности), 
+//Liskov Substitution (L), Можно использовать User вместо его подклассов
 package Core.MVC.models;
 
 import java.time.LocalDate;

@@ -1,3 +1,6 @@
+//аналогично BirthdateGenerator
+//Он имеет единственную ответственность.
+//Он расширяет базовый тип через наследование.
 package Core.Infrastructure.generateInputDate;
 
 public class MiddlenameGenerator extends InputDataGeneration{

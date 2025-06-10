@@ -1,3 +1,6 @@
+//SPR - Он имеет единственную ответственность — итерацию по студентам.
+//OCP: класс можно расширять, не меняя стандартный интерфейс Iterator
+//LSP: класс можно использовать вместо любого другого Iterator<Student>.
 package Core.Infrastructure;
 
 import java.util.Iterator;

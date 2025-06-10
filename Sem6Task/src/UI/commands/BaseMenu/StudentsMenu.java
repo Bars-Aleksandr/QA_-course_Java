@@ -1,38 +1,51 @@
+/**
+ * 1. Single Responsibility Principle (SRP)
+
+    ItemsStudentsMenu — отвечает только за хранение и предоставление пунктов меню.
+    StudentsMenu — отвечает только за отображение меню.
+    Общий подход — разделение ответственности выполнено правильно.
+
+2. Open/Closed Principle (OCP)
+
+    Можно добавлять новые пункты меню, создавая новые классы, реализующие IItemsMenuUsers<Student>.
+    StudentsMenu не нужно менять при добавлении новых пунктов — он универсален.
+
+Вывод:
+Открыт для расширения, закрыт для модификации — соответствует OCP.
+3. Liskov Substitution Principle (LSP)
+
+    ItemsStudentsMenu реализует интерфейс IItemsMenuUsers<Student>.
+    Можно подставлять любые реализации этого интерфейса без нарушения работы StudentsMenu.
+
+4. Interface Segregation Principle (ISP)
+
+    Интерфейс IItemsMenuUsers<Student> предполагает метод getItemsMenu().
+    Это минимальный интерфейс, соответствующий принципу сегрегации.
+
+5. Dependency Inversion Principle (DIP)
+
+    В вашем коде StudentsMenu зависит от абстракции (String[] itemsMenu) и интерфейса (IItemsMenuUsers<Student>).
+    Вызов через интерфейс делает систему более гибкой и легко расширяемой.
+
+ */
 package UI.commands.BaseMenu;
 
-
-
 public class StudentsMenu implements IMenu {
-    
+    private final String[] itemsMenu;
 
-    public StudentsMenu() {
-        
+    public StudentsMenu(String[] itemsMenu) {
+        this.itemsMenu = itemsMenu;
     }
 
     @Override
     public void show() {
 
         System.out.println("\n--- Работа со студентами ---");
-        for (String itemMenu : createItemsMenu()) {
+        for (String itemMenu : itemsMenu) {
             System.out.println(itemMenu);
         }
         System.out.print("Выберите пункт: ");
 
-    }
-
-    
-
-    private String[] createItemsMenu() {
-        String[] itemsMenu = {
-                "1. Показать всех студентов",
-                "2. Добавить студента",
-                "3. Отсортировать список студентов по id",
-                "4. Отсортировать список студентов по ФИО",
-                "5. Перемешать список студентов",
-                "6. Удалить студента по ФИО",
-                "0. Назад"
-        };
-        return itemsMenu;
     }
 
 }

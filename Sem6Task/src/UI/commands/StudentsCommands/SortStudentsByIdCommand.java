@@ -1,4 +1,4 @@
-package UI.commands.MenuStudentsCommands;
+package UI.commands.StudentsCommands;
 
 import Core.MVC.controllers.StudyGroupController;
 import UI.commands.ICommand;

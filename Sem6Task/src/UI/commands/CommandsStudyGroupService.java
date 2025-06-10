@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Core.MVC.controllers.StudyGroupController;
-import UI.commands.MenuStudentsCommands.CreateStudentCommand;
-import UI.commands.MenuStudentsCommands.PrintStudentsCommand;
-import UI.commands.MenuStudentsCommands.RemoveStudentByFioCommand;
-import UI.commands.MenuStudentsCommands.ShuffleStudentsCommand;
-import UI.commands.MenuStudentsCommands.SortStudentsByFIOCommand;
-import UI.commands.MenuStudentsCommands.SortStudentsByIdCommand;
+import UI.commands.StudentsCommands.CreateStudentCommand;
+import UI.commands.StudentsCommands.PrintStudentsCommand;
+import UI.commands.StudentsCommands.RemoveStudentByFioCommand;
+import UI.commands.StudentsCommands.ShuffleStudentsCommand;
+import UI.commands.StudentsCommands.SortStudentsByFIOCommand;
+import UI.commands.StudentsCommands.SortStudentsByIdCommand;
 
 public class CommandsStudyGroupService {
     

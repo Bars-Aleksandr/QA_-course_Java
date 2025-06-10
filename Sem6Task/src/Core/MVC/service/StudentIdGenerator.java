@@ -1,3 +1,4 @@
+// все 5 принципов SOLID
 package Core.MVC.service;
 
 import Core.MVC.models.Student;

@@ -1,3 +1,4 @@
+//SOLID
 package Core.MVC.service;
 
 import Core.MVC.models.User;

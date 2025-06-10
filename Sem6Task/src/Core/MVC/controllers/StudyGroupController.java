@@ -1,5 +1,8 @@
-// Поддержка принципа Dependency Inversion Principle (DIP).
-// Контроллер зависит от абстракции (UserView<Student>), а не от конкретной реализации (StudentView)
+//SRP: управляет группой студентов, вызывает сервисы для выполнения бизнес-операций, делегирует отображение данных через интерфейс IUserView<Student>
+//OCP: добавлять новые реализации интерфейсов без изменения контроллера
+//LSP: Использует интерфейсы вместо конкретных классов
+//ISP: нет лишних методов
+//DIP: Контроллер зависит от абстракций
 package Core.MVC.controllers;
 
 import java.time.LocalDate;
@@ -20,14 +23,14 @@ public class StudyGroupController implements IUserController<Student> {
 
     private final StudyGroupService studyGroupService;
     private final IUserView<Student> studentView;
-    private final StudyGroup studyGroup;
+   // private final StudyGroup studyGroup;
     private final IUserBuilder<Student> studentBuilder;
 
     public StudyGroupController(StudyGroupService studyGroupService, IUserView<Student> studentView,
             StudyGroup studyGroup, StudentBuilder studentBuilder) {
         this.studyGroupService = studyGroupService;
         this.studentView = studentView;
-        this.studyGroup = studyGroup;
+    //    this.studyGroup = studyGroup;
         this.studentBuilder = studentBuilder;
     }
     
@@ -38,6 +41,15 @@ public class StudyGroupController implements IUserController<Student> {
         return studentView;
     }
 
+    /**
+     * Метод необходим только для автоматической подготовки тестовых данных.
+     * @param commandService
+     * @param idGenerator
+     * @param firstNameGenerator
+     * @param lastNameGenerator
+     * @param middleNameGenerator
+     * @param birthdayGenerator
+     */
     public void autoGenerateStudyGroup(CommandsStudyGroupService commandService, IdGenerator<Student> idGenerator,
             InputDataGeneration firstNameGenerator, InputDataGeneration lastNameGenerator,
             InputDataGeneration middleNameGenerator, InputDataGeneration birthdayGenerator) {
@@ -80,9 +92,6 @@ public class StudyGroupController implements IUserController<Student> {
         return this.studyGroupService.getStudyGroup();
     }
 
-    public void printStudyGroupStudents() {
-        this.studyGroupService.printStudents(studyGroup);
-    }
 
     public void sendOnConsoleStudentsList(List<Student> studentList) {
         studentView.sendOnConsole(studentList);

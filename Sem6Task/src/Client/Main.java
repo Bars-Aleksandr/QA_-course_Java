@@ -27,6 +27,8 @@ import Core.MVC.service.Interfaces.IdGenerator;
 import Core.MVC.view.IUserView;
 import Core.MVC.view.StudentView;
 import Core.MVC.view.TeacherView;
+import Core.MVC.view.itemsMenu.ItemsStudentsMenu;
+import Core.MVC.view.itemsMenu.ItemsTeachersMenu;
 import UI.commands.CommandsStudyGroupService;
 import UI.commands.CommandsTeacherService;
 import UI.commands.UserInputHandler;
@@ -59,13 +61,13 @@ public class Main {
                 final StudyGroupController studyGroupController = new StudyGroupController(studyGroupService,
                                 studentView,
                                 studyGroup, studentBuilder);
+                final StudentsMenu studentsMenu = new StudentsMenu(new ItemsStudentsMenu().getItemsMenu());
 
-                final StudentsMenu studentsMenu = new StudentsMenu();
-                final TeachersMenu teachersMenu = new TeachersMenu();
+                final TeachersMenu teachersMenu = new TeachersMenu(new ItemsTeachersMenu().getItemsMenu());
                 final CommandsStudyGroupService studyGroupCommandService = new CommandsStudyGroupService();
                 final TeachersService teacherService = new TeachersService(teacherBuilder);
                 final TeacherController teacherController = new TeacherController(idGeneratorTeacher, teacherService,
-                                teacherView, teacherBuilder);
+                                teacherView);
                 final CommandsTeacherService teachersCommandsService = new CommandsTeacherService(teacherController);
                 final UserInputHandler handler = new UserInputHandler(scanner, studyGroupCommandService);
                 final MenuInvoker menu = new MenuInvoker(handler, studyGroupCommandService, studentsMenu,
@@ -83,7 +85,9 @@ public class Main {
                 /**
                  * Метод для генерация списка учителей
                  */
-                teacherController.autoGenerateTeachers(teachersCommandsService, idGeneratorTeacher, new LastnameGenerator(), new FirstnameGenerator(), new MiddlenameGenerator(), new BirthdateGenerator());
+                teacherController.autoGenerateTeachers(teachersCommandsService, idGeneratorTeacher,
+                                new LastnameGenerator(), new FirstnameGenerator(), new MiddlenameGenerator(),
+                                new BirthdateGenerator());
                 menu.start();
 
                 scanner.close();

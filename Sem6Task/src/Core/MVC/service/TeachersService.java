@@ -1,3 +1,4 @@
+//SRP, OCP, DIP
 package Core.MVC.service;
 
 import java.time.LocalDate;

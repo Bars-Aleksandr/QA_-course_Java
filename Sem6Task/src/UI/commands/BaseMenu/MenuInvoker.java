@@ -2,7 +2,7 @@ package UI.commands.BaseMenu;
 
 import Core.MVC.controllers.StudyGroupController;
 import Core.MVC.controllers.TeacherController;
-
+import Core.MVC.view.itemsMenu.ItemsAppMenu;
 import UI.commands.CommandsStudyGroupService;
 import UI.commands.CommandsTeacherService;
 import UI.commands.InputModel;
@@ -18,10 +18,12 @@ public class MenuInvoker {
     private final TeachersMenu teachersMenu;
     private final StudyGroupController studyGroupController;
     private final TeacherController teacherController;
+    private final ItemsAppMenu itemsAppMenu = new ItemsAppMenu();
 
+    
     public MenuInvoker(UserInputHandler handler, CommandsStudyGroupService studyGroupCommandService, StudentsMenu studentsMenu,
             StudyGroupController studyGroupController, TeacherController teacherController, TeachersMenu teachersMenu, CommandsTeacherService teachersCommands) {
-        this.appMenu = new AppMenu();
+        this.appMenu = new AppMenu(itemsAppMenu.getItemsMenu());
         this.handler = handler;
         this.studyGroupCommandService = studyGroupCommandService;
         this.teachersCommandsService = teachersCommands;

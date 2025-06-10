@@ -1,14 +1,18 @@
-// Применяем принцип Single responsibility и LSP Student и Teacher расширяют User, и всё выглядит корректно. Они используют базовые поля и методы без нарушения контрактов.
-// Student и Teacher наследуется от User поэтому все общие поля переносим в User 
+//SRP:  хранит данные студента, предоставляет возможность сравнивать по ID и выводить экземпляр
+//OCP:  класс легко расширять без изменения существующего кода.
+// LSP: класс можно использовать класс Student вместо базового типа User.
+//ISP:  классе реализуются только необходимые методы (toString(), compareTo()) и геттеры. Нет зависимости от ненужных интерфейсов или методов.
 
 package Core.MVC.models;
 
 import java.time.LocalDate;
 
+import Core.MVC.view.DateFormatter;
 import Core.MVC.view.SimpleDateFormatter;
 
 public class Student extends User implements Comparable<Student> {
     private final Long studentId;
+    private static final DateFormatter dateFormatter = new SimpleDateFormatter();
 
     public Student(Long id, String lastName, String firstName, String middleName, LocalDate birthDate) {
         super(lastName, firstName, middleName, birthDate);
@@ -25,7 +29,7 @@ public class Student extends User implements Comparable<Student> {
     }
 
     private String getFormattedBirthDate() {
-        return new SimpleDateFormatter().format(getBirthDate());
+        return dateFormatter.format(getBirthDate());
     }
 
     @Override

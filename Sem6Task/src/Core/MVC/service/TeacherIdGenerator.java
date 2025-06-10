@@ -1,3 +1,4 @@
+//SRP, OCP, ISP, DIP
 package Core.MVC.service;
 
 import Core.MVC.models.Teacher;

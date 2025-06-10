@@ -1,3 +1,4 @@
+//в какой-то степени SRP, но можно было бы поразбивать на более мелкие сервисы
 package Core.MVC.service;
 
 
@@ -68,7 +69,4 @@ public class StudyGroupService {
         this.studyGroup.addStudent(student);
     }
 
-    public void printStudents(StudyGroup studyGroup) {
-        studyGroup.printStudents();
-    }
 }

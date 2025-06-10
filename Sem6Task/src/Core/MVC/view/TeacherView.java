@@ -1,3 +1,4 @@
+//аналогично StudentView
 package Core.MVC.view;
 import java.util.List;
 

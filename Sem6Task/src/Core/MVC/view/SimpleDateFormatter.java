@@ -1,3 +1,4 @@
+//SRP, OCP
 package Core.MVC.view;
 
 import java.time.LocalDate;
