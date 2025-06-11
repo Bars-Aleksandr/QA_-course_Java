@@ -1,9 +1,9 @@
 package Core.MVC.view;
 import java.util.List;
 
-import Core.MVC.view.models.Teacher;
+import Core.MVC.models.Teacher;
 
-public class TeacherView implements UserView<Teacher> {
+public class TeacherView implements IUserView<Teacher> {
 
     @Override
     public void sendOnConsole(List<Teacher> list) {

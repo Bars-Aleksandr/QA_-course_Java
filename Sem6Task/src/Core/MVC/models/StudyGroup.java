@@ -1,9 +1,8 @@
-package Core.MVC.view.models;
+package Core.MVC.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-//import java.util.NoSuchElementException;
 
 import Core.Infrastructure.StudyGroupIterator;
 
