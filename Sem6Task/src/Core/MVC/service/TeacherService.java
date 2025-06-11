@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import Core.Infrastructure.UserComparator;
-import Core.MVC.view.models.Teacher;
+import Core.MVC.models.Teacher;
 
 public class TeacherService {
     private Teacher teacher;
