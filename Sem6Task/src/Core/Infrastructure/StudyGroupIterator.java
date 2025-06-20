@@ -1,10 +1,13 @@
+//SPR - Он имеет единственную ответственность — итерацию по студентам.
+//OCP: класс можно расширять, не меняя стандартный интерфейс Iterator
+//LSP: класс можно использовать вместо любого другого Iterator<Student>.
 package Core.Infrastructure;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import Core.MVC.view.models.Student;
-import Core.MVC.view.models.StudyGroup;
+import Core.MVC.models.Student;
+import Core.MVC.models.StudyGroup;
 
 public class StudyGroupIterator implements Iterator<Student> {
     private int index = 0;
